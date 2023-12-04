@@ -1,0 +1,11 @@
+@font-face {
+    font-family: 'DBHeaventCondBold';
+    src: local('DBHeaventCondBold'),
+         url('./fonts/DB_Heavent_Cond/DB_Heavent_Bd_Cond_v3.2.1.ttf') format('truetype');
+  }
+
+  @font-face {
+    font-family: 'DBHeaventCond';
+    src: local('DBHeaventCond'),
+         url('./fonts/DB_Heavent_Cond/DB_Heavent_Cond_v3.2.1.ttf') format('truetype');
+  }
