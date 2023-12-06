@@ -1,3 +1,5 @@
+@import "fonts.css";
+
 :root {
   line-height: 1.5;
   font-weight: 400;
@@ -42,59 +44,52 @@ svg.nav-bar:hover {
 }
 
 .bg-login {
-  background: linear-gradient(
-    90deg,
-    #5e8b6f 0%,
-    #5e8b6f 15%,
-    #fcbc59 15%,
-    #fcbc59 20%,
-    #ffffff 20%,
-    #ffffff 80%,
-    #fcbc59 80%,
-    #fcbc59 85%,
-    #5e8b6f 85%,
-    #5e8b6f 100%
-  );
+  background-color: #111;
   width: 100%;
-  height: 98vh;
-  overflow-y: hidden;
-  flex-direction: column;
-  align-items: center;
-  display: flex;
-  justify-content: center;
+  height: 100vh;
+  display: grida;
+  font-family: "DBHeaventCond";
 }
 
-.login-page {
+.login-pop {
   flex-direction: column;
   align-items: center;
-  width: 50%;
+  width: 100%;
   display: flex;
   font-family: "DBHeaventCondBold";
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 5%;
 }
 
 /**/
-
+.search-box {
+  &:focus {
+    outline: none;
+    border-bottom: 1px solid #fcbc59;
+  }
+}
 .input-bar {
   transition: 0.1s;
   width: 100%;
   margin: 10% 1% 1% 1%;
   padding-bottom: 2%;
-  color: #5e8b6f;
+  color: #111;
   background-color: transparent;
   box-sizing: border-box;
   border: 0;
-  border-bottom: 2px solid #5e8b6f;
+  border-bottom: 2px solid #111;
   &::placeholder {
     color: transparent;
   }
   &:placeholder-shown ~ .input-label {
     top: 40%;
-    color: #5e8b6f;
+    color: #111;
   }
 
   &:focus {
     outline: none;
-    border-bottom: 1px solid #fcbc59;
+    border-bottom: 1px solid #222;
   }
   &:focus ~ .input-label {
     top: 20%;
@@ -106,22 +101,22 @@ svg.nav-bar:hover {
   position: absolute;
   transition: 0.1s;
   font-size: 120%;
-  color: #fcbc59;
+  color: #111;
   left: 0;
   height: 120%;
 }
 
 .button-cs {
-  background-color: #5e8b6f;
-  border: 5px solid #5e8b6f;
+  background-color: #111;
+  border: 5px solid #111;
   margin: 5% 0% 0% 0%;
   border-radius: 5px;
   width: 50%;
 }
 
 .button-cs:hover {
-  background-color: #fcbc59;
-  border: 5px solid #fcbc59;
+  background-color: #222;
+  border: 5px solid #222;
 }
 
 div.login-status {
@@ -164,32 +159,43 @@ div.login-status {
   align-items: center;
   background-color: #5e8b6f;
 }
-/* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
-  .bg-login {
-    background: linear-gradient(
-      0deg,
-      #5e8b6f 0%,
-      #5e8b6f 2%,
-      #fcbc59 2%,
-      #fcbc59 4%,
-      #ffffff 4%,
-      #ffffff 96%,
-      #fcbc59 96%,
-      #fcbc59 98%,
-      #5e8b6f 98%,
-      #5e8b6f 100%
-    );
-    width: 100%;
-    height: 100vh !important;
-    overflow-y: hidden;
-    flex-direction: column;
-    align-items: center;
+
+.post {
+  width: auto;
+  background-color: #111;
+  border-radius: 2vh;
+  margin: 1% 1%;
+  border: 1px solid #222;
+  color: #fff;
+  padding: 0% 2%;
+}
+
+.post-owner {
+  padding: 2% 0%;
+  border-bottom: 1px solid #fff;
+  display: flex;
+  flex-direction: row;
+
+  .post-owner-profile {
     display: flex;
     justify-content: center;
+    width: 7%;
+    margin-right: 1%;
   }
 
-  .login-page {
+  .post-owner-name {
+    font-size: 2.5vh;
+  }
+}
+
+.post-content {
+  padding: 2%;
+  font-size: 2.5vh;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .login-pop {
     flex-direction: column;
     align-items: center;
     width: 100%;

@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
-import Login, { loginUser } from "./Login.tsx";
+import Home, { loginUser } from "./Home.tsx";
 // import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 // const router = createBrowserRouter([
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
 export function appPortal() {
   root?.render(
     <React.StrictMode>
-      {loginUser == null || loginUser == undefined ? <Login /> : <App />}
+      {loginUser == null || loginUser == undefined ? <Home /> : <App />}
     </React.StrictMode>
   );
 }

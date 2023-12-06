@@ -13,7 +13,7 @@ import { Scrollbars } from "react-custom-scrollbars";
 import "./fonts.css";
 import "./index.css";
 import Modal from "react-bootstrap/Modal";
-import Login, { loginUser, resetLoginUser } from "./Login.tsx";
+import Login, { loginUser, resetLoginUser } from "./Home.tsx";
 import { ModalBody } from "react-bootstrap";
 
 export default function App() {

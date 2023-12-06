@@ -1,8 +1,8 @@
 {
-  "name": "sornn-project",
+  "name": "SeChat",
   "private": true,
   "version": "0.0.0",
-  "homepage": "http://burapahpooh.github.io/sornn-project",
+  "homepage": "http://burapahpooh.github.io/SeChat",
   "type": "module",
   "scripts": {
     "predeploy": "npm run build",
