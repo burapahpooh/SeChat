@@ -5,8 +5,8 @@ import { VStack } from "@chakra-ui/layout";
 import { useState } from "react";
 import axios from "axios";
 import { useToast } from "@chakra-ui/react";
-import { useHistory } from "react-router-dom"
-const server_ipaddress="http://localhost:5000"
+import { useHistory } from "react-router-dom";
+const server_ipaddress = "http://188.166.228.187:5000";
 
 const Login = () => {
   const [show, setShow] = useState(false);
@@ -17,7 +17,6 @@ const Login = () => {
   const toast = useToast();
   const history = useHistory();
   const handleClick = () => setShow(!show);
-
 
   const submitHandler = async () => {
     setLoading(true);
@@ -41,7 +40,7 @@ const Login = () => {
       };
 
       const { data } = await axios.post(
-        server_ipaddress+"/api/user/login",
+        server_ipaddress + "/api/user/login",
         { email, password },
         config
       );

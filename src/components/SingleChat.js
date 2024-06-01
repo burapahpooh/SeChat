@@ -15,9 +15,9 @@ import Lottie from "react-lottie";
 import io from "socket.io-client";
 import UpdateGroupChatModal from "./miscellaneous/UpdateGroupChatModal";
 import { ChatState } from "../Context/ChatProvider";
-const ENDPOINT = "http://localhost:5000"; // "https://talk-a-tive.herokuapp.com"; -> After deployment
-const ENDPOINT_BOT = "http://localhost:5174";
-const ENDPOINT_KEY ="http://localhost:5174";
+const ENDPOINT = "http://188.166.228.187:5000"; // "https://talk-a-tive.herokuapp.com"; -> After deployment
+const ENDPOINT_BOT = "http://188.166.228.187:5174";
+const ENDPOINT_KEY = "http://188.166.228.187:5174";
 var socket, selectedChatCompare;
 var botCheck = false;
 var bot_message_array = [];
@@ -39,8 +39,14 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       preserveAspectRatio: "xMidYMid slice",
     },
   };
-  const { selectedChat, setSelectedChat, sharedKey , user, notification, setNotification } =
-    ChatState();
+  const {
+    selectedChat,
+    setSelectedChat,
+    sharedKey,
+    user,
+    notification,
+    setNotification,
+  } = ChatState();
 
   const fetchMessages = async () => {
     if (!selectedChat) return;
@@ -55,32 +61,34 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       setLoading(true);
 
       const { data } = await axios.get(
-        ENDPOINT+`/api/message/${selectedChat._id}`,
+        ENDPOINT + `/api/message/${selectedChat._id}`,
         config
       );
-      botCheck=false;
-      selectedChat.users.forEach(e => {
-        if(e.isBot){botCheck=e.isBot}
-      }) 
-      if(data.length===0){
-        setLoading(false);}
-      else if(selectedChat.users.length===2&&!botCheck){
-        await data.forEach(async(e,i) => {
-          const decrpted_latestMessage = await axios.post(ENDPOINT_KEY+`/encrypt_decrypt`,
-          {
-            message:e.content,
-            mode:"decrypt",
-            shared_key:sharedKey
-          },
+      botCheck = false;
+      selectedChat.users.forEach((e) => {
+        if (e.isBot) {
+          botCheck = e.isBot;
+        }
+      });
+      if (data.length === 0) {
+        setLoading(false);
+      } else if (selectedChat.users.length === 2 && !botCheck) {
+        await data.forEach(async (e, i) => {
+          const decrpted_latestMessage = await axios.post(
+            ENDPOINT_KEY + `/encrypt_decrypt`,
+            {
+              message: e.content,
+              mode: "decrypt",
+              shared_key: sharedKey,
+            }
           );
-          data[i].content=decrpted_latestMessage.data.output;
-          if(i===data.length-1){
+          data[i].content = decrpted_latestMessage.data.output;
+          if (i === data.length - 1) {
             setMessages(data);
             setLoading(false);
           }
         });
-      }
-      else{
+      } else {
         setMessages(data);
         setLoading(false);
       }
@@ -109,22 +117,23 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           },
         };
         setNewMessage("");
-        const encrpted_latestMessage = await axios.post(ENDPOINT_KEY+`/encrypt_decrypt`,
+        const encrpted_latestMessage = await axios.post(
+          ENDPOINT_KEY + `/encrypt_decrypt`,
           {
-            message:newMessage,
-            mode:"encrypt",
-            shared_key:sharedKey
-          },
-          );
+            message: newMessage,
+            mode: "encrypt",
+            shared_key: sharedKey,
+          }
+        );
         const { data } = await axios.post(
-          ENDPOINT+"/api/message",
+          ENDPOINT + "/api/message",
           {
             content: encrpted_latestMessage.data.output,
             chatId: selectedChat,
           },
           config
         );
-        data.content=newMessage;
+        data.content = newMessage;
         socket.emit("new message", data);
         setMessages([...messages, data]);
       } catch (error) {
@@ -142,7 +151,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
   const sendMessage2Bot = async (event) => {
     if (event.key === "Enter" && newMessage) {
-      bot_message_array=[];
+      bot_message_array = [];
       socket.emit("stop typing", selectedChat._id);
       try {
         const config = {
@@ -153,7 +162,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         };
         setNewMessage("");
         const { data } = await axios.post(
-          ENDPOINT+"/api/message",
+          ENDPOINT + "/api/message",
           {
             content: newMessage,
             chatId: selectedChat,
@@ -163,32 +172,35 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         bot_message_array.push(data);
         socket.emit("new message", data);
         setMessages([...messages, data]);
-        await axios.post(
-          ENDPOINT_BOT+"/model",
-          {
-            message: newMessage
-          },
-          {
-            headers: {
-              "Content-type": "application/json"
+        await axios
+          .post(
+            ENDPOINT_BOT + "/model",
+            {
+              message: newMessage,
+            },
+            {
+              headers: {
+                "Content-type": "application/json",
+              },
             }
-          }
-        ).then(async(e)=>{
-          await axios.post(
-          ENDPOINT+"/api/message/bot_send",
-          {
-            content: e.data.output,
-            chatId: selectedChat,
-          },
-          config
-        ).then((x)=>{
-          bot_message_array.push(x.data);
-          socket.emit("new message", ...bot_message_array);
-        setMessages([...messages, ...bot_message_array]);
-        console.log(messages);
-      });
-        
-      });
+          )
+          .then(async (e) => {
+            await axios
+              .post(
+                ENDPOINT + "/api/message/bot_send",
+                {
+                  content: e.data.output,
+                  chatId: selectedChat,
+                },
+                config
+              )
+              .then((x) => {
+                bot_message_array.push(x.data);
+                socket.emit("new message", ...bot_message_array);
+                setMessages([...messages, ...bot_message_array]);
+                console.log(messages);
+              });
+          });
       } catch (error) {
         toast({
           title: "Error Occured!",
@@ -202,12 +214,14 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     }
   };
 
-  function sendMessageHandler(){
-    botCheck=false;
-    selectedChat.users.forEach(e => {
-      if(e.isBot){botCheck=e.isBot}
-  }) 
-  return botCheck ? sendMessage2Bot : sendMessage;
+  function sendMessageHandler() {
+    botCheck = false;
+    selectedChat.users.forEach((e) => {
+      if (e.isBot) {
+        botCheck = e.isBot;
+      }
+    });
+    return botCheck ? sendMessage2Bot : sendMessage;
   }
 
   useEffect(() => {
@@ -324,8 +338,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             )}
 
             <FormControl
-              onKeyDown={sendMessageHandler()
-                }
+              onKeyDown={sendMessageHandler()}
               id="message-box"
               isRequired
               mt={3}

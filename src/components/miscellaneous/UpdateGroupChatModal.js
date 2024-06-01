@@ -21,7 +21,7 @@ import { useState } from "react";
 import { ChatState } from "../../Context/ChatProvider";
 import UserBadgeItem from "../userAvatar/UserBadgeItem";
 import UserListItem from "../userAvatar/UserListItem";
-const ENDPOINT = "http://localhost:5000";
+const ENDPOINT = "http://188.166.228.187:5000";
 
 const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -47,7 +47,10 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const { data } = await axios.get(ENDPOINT+`/api/user?search=${search}`, config);
+      const { data } = await axios.get(
+        ENDPOINT + `/api/user?search=${search}`,
+        config
+      );
       console.log(data);
       setLoading(false);
       setSearchResult(data);
@@ -74,7 +77,8 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const { data } = await axios.put(ENDPOINT+`/api/chat/rename`,
+      const { data } = await axios.put(
+        ENDPOINT + `/api/chat/rename`,
         {
           chatId: selectedChat._id,
           chatName: groupChatName,
@@ -131,7 +135,8 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const { data } = await axios.put(ENDPOINT+`/api/chat/groupadd`,
+      const { data } = await axios.put(
+        ENDPOINT + `/api/chat/groupadd`,
         {
           chatId: selectedChat._id,
           userId: user1._id,
@@ -175,7 +180,8 @@ const UpdateGroupChatModal = ({ fetchMessages, fetchAgain, setFetchAgain }) => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const { data } = await axios.put(ENDPOINT+`/api/chat/groupremove`,
+      const { data } = await axios.put(
+        ENDPOINT + `/api/chat/groupremove`,
         {
           chatId: selectedChat._id,
           userId: user1._id,

@@ -9,15 +9,16 @@ import GroupChatModal from "./miscellaneous/GroupChatModal";
 import { Button } from "@chakra-ui/react";
 import { ChatState } from "../Context/ChatProvider";
 import "./styles.css";
-const ENDPOINT = "http://localhost:5000";
-const ENDPOINT_KEY ="http://localhost:5174";
+const ENDPOINT = "http://188.166.228.187:5000";
+const ENDPOINT_KEY = "http://188.166.228.187:5174";
 var temp = [];
 var botCheck = false;
 
 const MyChats = ({ fetchAgain }) => {
   const [loggedUser, setLoggedUser] = useState();
 
-  const { selectedChat, setSelectedChat, setSharedKey, user, chats, setChats } = ChatState();
+  const { selectedChat, setSelectedChat, setSharedKey, user, chats, setChats } =
+    ChatState();
 
   const toast = useToast();
 
@@ -30,58 +31,66 @@ const MyChats = ({ fetchAgain }) => {
         },
       };
 
-      const { data } = await axios.get(ENDPOINT+"/api/chat", config);
-      if(data.length===0){setChats([]);}
-      else{
+      const { data } = await axios.get(ENDPOINT + "/api/chat", config);
+      if (data.length === 0) {
+        setChats([]);
+      } else {
         temp = [];
-        await data.forEach(async(e,i) => {
-          botCheck=false;
-          e.users.forEach(x => {
-            if(x.isBot){botCheck=x.isBot}
-          })
-          if(!botCheck){
-            if(e.hasOwnProperty("latestMessage")&&e.latestMessage!=null){
-              const data_key = await axios.post(ENDPOINT_KEY+`/get_sharedKey`,
-            {
-              user_id: e.users[0]._id,
-              shared_user_id: e.users[1]._id,
-            },
-            );
-            await axios.post(ENDPOINT_KEY+`/encrypt_decrypt`,
-            {
-              message:e.latestMessage.content,
-              mode:"decrypt",
-              shared_key:data_key.data.shared_key
-            },
-            ).then((x)=>{
-              data[i].latestMessage.content=x.data.output;
-              if(temp.length<data.length){
+        await data.forEach(async (e, i) => {
+          botCheck = false;
+          e.users.forEach((x) => {
+            if (x.isBot) {
+              botCheck = x.isBot;
+            }
+          });
+          if (!botCheck) {
+            if (e.hasOwnProperty("latestMessage") && e.latestMessage != null) {
+              const data_key = await axios.post(
+                ENDPOINT_KEY + `/get_sharedKey`,
+                {
+                  user_id: e.users[0]._id,
+                  shared_user_id: e.users[1]._id,
+                }
+              );
+              await axios
+                .post(ENDPOINT_KEY + `/encrypt_decrypt`, {
+                  message: e.latestMessage.content,
+                  mode: "decrypt",
+                  shared_key: data_key.data.shared_key,
+                })
+                .then((x) => {
+                  data[i].latestMessage.content = x.data.output;
+                  if (temp.length < data.length) {
+                    temp.push(data[i]);
+                    console.log("push");
+                    if (temp.length === data.length) {
+                      setChats(temp);
+                    }
+                  } else if (temp.length === data.length) {
+                    setChats(temp);
+                  }
+                });
+            } else {
+              if (temp.length < data.length) {
                 temp.push(data[i]);
-                console.log("push");
-              if(temp.length===data.length){setChats(temp);}
+                if (temp.length === data.length) {
+                  setChats(temp);
+                }
+              } else if (temp.length === data.length) {
+                setChats(temp);
               }
-              else if(temp.length===data.length){setChats(temp);}
             }
-            );
-            }
-            else{
-              if(temp.length<data.length){
-                temp.push(data[i]);
-                if(temp.length===data.length){setChats(temp);}
-              }
-              else if(temp.length===data.length){setChats(temp);}
-            }
-          }
-          else{
-            if(temp.length<data.length){
+          } else {
+            if (temp.length < data.length) {
               temp.push(data[i]);
               console.log("push");
-            if(temp.length===data.length){setChats(temp);}
+              if (temp.length === data.length) {
+                setChats(temp);
+              }
+            } else if (temp.length === data.length) {
+              setChats(temp);
             }
-            else if(temp.length===data.length){setChats(temp);}
           }
-          
-          
         });
       }
     } catch (error) {
@@ -103,28 +112,28 @@ const MyChats = ({ fetchAgain }) => {
   }, [fetchAgain]);
 
   async function getChat(chat) {
-    botCheck=false;
-    chat.users.forEach(e => {
-      if(e.isBot){botCheck=e.isBot}
-  });
-  if(!botCheck){
-    const data_key = await axios.post(ENDPOINT_KEY+`/get_sharedKey`,
-    {
-      user_id: chat.users[0]._id,
-      shared_user_id: chat.users[1]._id,
-    },
-    );
-    setSharedKey(data_key.data.shared_key);
-    toast({
-      title: "Infomation",
-      description: "This chat is protected by End-to-End Encryption",
-      status: "info",
-      duration: 5000,
-      isClosable: true,
-      position: "bottom",
+    botCheck = false;
+    chat.users.forEach((e) => {
+      if (e.isBot) {
+        botCheck = e.isBot;
+      }
     });
-  }
-    setSelectedChat(chat)
+    if (!botCheck) {
+      const data_key = await axios.post(ENDPOINT_KEY + `/get_sharedKey`, {
+        user_id: chat.users[0]._id,
+        shared_user_id: chat.users[1]._id,
+      });
+      setSharedKey(data_key.data.shared_key);
+      toast({
+        title: "Infomation",
+        description: "This chat is protected by End-to-End Encryption",
+        status: "info",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+    }
+    setSelectedChat(chat);
   }
 
   return (
