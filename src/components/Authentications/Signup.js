@@ -50,7 +50,7 @@ const Signup = () => {
         },
       };
       const { data } = await axios.post(
-        "http://188.166.228.187:5000/api/user",
+        "https://188.166.228.187:5000/api/user",
         {
           name,
           email,
@@ -101,7 +101,7 @@ const Signup = () => {
       data.append("file", pics);
       data.append("upload_preset", "chat-app");
       data.append("cloud_name", "piyushproj");
-      fetch("https://api.cloudinary.com/v1_1/piyushproj/image/upload", {
+      fetch("httpss://api.cloudinary.com/v1_1/piyushproj/image/upload", {
         method: "post",
         body: data,
       })

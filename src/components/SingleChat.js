@@ -15,9 +15,9 @@ import Lottie from "react-lottie";
 import io from "socket.io-client";
 import UpdateGroupChatModal from "./miscellaneous/UpdateGroupChatModal";
 import { ChatState } from "../Context/ChatProvider";
-const ENDPOINT = "http://188.166.228.187:5000"; // "https://talk-a-tive.herokuapp.com"; -> After deployment
-const ENDPOINT_BOT = "http://188.166.228.187:5174";
-const ENDPOINT_KEY = "http://188.166.228.187:5174";
+const ENDPOINT = "https://188.166.228.187:5000"; // "https://talk-a-tive.herokuapp.com"; -> After deployment
+const ENDPOINT_BOT = "https://188.166.228.187:5174";
+const ENDPOINT_KEY = "https://188.166.228.187:5174";
 var socket, selectedChatCompare;
 var botCheck = false;
 var bot_message_array = [];

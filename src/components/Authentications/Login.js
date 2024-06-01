@@ -6,7 +6,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useToast } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
-const server_ipaddress = "http://188.166.228.187:5000";
+const server_ipaddress = "https://188.166.228.187:5000";
 
 const Login = () => {
   const [show, setShow] = useState(false);

@@ -9,8 +9,8 @@ import GroupChatModal from "./miscellaneous/GroupChatModal";
 import { Button } from "@chakra-ui/react";
 import { ChatState } from "../Context/ChatProvider";
 import "./styles.css";
-const ENDPOINT = "http://188.166.228.187:5000";
-const ENDPOINT_KEY = "http://188.166.228.187:5174";
+const ENDPOINT = "https://188.166.228.187:5000";
+const ENDPOINT_KEY = "https://188.166.228.187:5174";
 var temp = [];
 var botCheck = false;
 

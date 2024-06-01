@@ -52,7 +52,7 @@ import "./styles.css";
 import TimerApp from "./TimerApp.js";
 import React from "react";
 import { BsTranslate } from "react-icons/bs";
-const ENDPOINT = "http://188.166.228.187:5000";
+const ENDPOINT = "https://188.166.228.187:5000";
 
 const SideDrawer = () => {
   const [search, setsearch] = useState("");
