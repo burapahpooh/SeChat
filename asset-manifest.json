@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/SeChat/static/css/main.f03b87a4.css",
-    "main.js": "/SeChat/static/js/main.16a1bb36.js",
+    "main.js": "/SeChat/static/js/main.31b50a32.js",
     "static/media/homeBG.jpg": "/SeChat/static/media/homeBG.dd598341dd37a30eb47d.jpg",
     "static/media/Exploit.png": "/SeChat/static/media/Exploit.51feb25df1226633b7d7.png",
     "static/media/AllNews.png": "/SeChat/static/media/AllNews.ffd17af8294978161c97.png",
@@ -10,10 +10,10 @@
     "static/media/Data Security.png": "/SeChat/static/media/Data Security.a9afbaad8f444a2c8b06.png",
     "index.html": "/SeChat/index.html",
     "main.f03b87a4.css.map": "/SeChat/static/css/main.f03b87a4.css.map",
-    "main.16a1bb36.js.map": "/SeChat/static/js/main.16a1bb36.js.map"
+    "main.31b50a32.js.map": "/SeChat/static/js/main.31b50a32.js.map"
   },
   "entrypoints": [
     "static/css/main.f03b87a4.css",
-    "static/js/main.16a1bb36.js"
+    "static/js/main.31b50a32.js"
   ]
 }
