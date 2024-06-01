@@ -1,0 +1,34 @@
+#top-chat {
+    display: flex;
+    flex-direction: row;
+    height: 10%;
+  }
+
+#bottom-chat {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-height: 90%;
+  }
+
+#bottom-top-chat{
+  display: flex;
+  justify-content: space-between;
+}
+
+#bottom-bottom-chat{
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+}
+
+#top-top-chat{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#top-bottom-chat{
+  display: flex;
+  flex-direction: column;
+}
